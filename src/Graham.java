@@ -1,6 +1,4 @@
-import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.Graphics2D;
 import java.util.*;
 
 public class Graham {
@@ -97,30 +95,4 @@ public class Graham {
     //    Graphics2D g2 = (Graphics2D) g;
     // }
 
-    /*
-    public static void main(String[] args) {
-
-        Point2D[] coordenadas = new Point2D[13];
-
-        coordenadas[0] = new Point2D.Double(0, 5);
-        coordenadas[1] = new Point2D.Double(-1, 1);
-        coordenadas[2] = new Point2D.Double(0, 1);
-        coordenadas[3] = new Point2D.Double(1, 1);
-        coordenadas[4] = new Point2D.Double(-5, 0);
-        coordenadas[5] = new Point2D.Double(-1, 0);
-        coordenadas[6] = new Point2D.Double(0, 0);
-        coordenadas[7] = new Point2D.Double(1, 0);
-        coordenadas[8] = new Point2D.Double(5, 0);
-        coordenadas[9] = new Point2D.Double(-1, -1);
-        coordenadas[10] = new Point2D.Double(0, -1);
-        coordenadas[11] = new Point2D.Double(1, -1);
-        coordenadas[12] = new Point2D.Double(0, -5);
-
-        Stack<Point2D> envolvente = crearPoligonoConvexo(coordenadas);
-
-        // imprime los resultados
-        assert envolvente != null;
-        while (!envolvente.isEmpty()) System.out.println(envolvente.pop());
-    }
-     */
 }

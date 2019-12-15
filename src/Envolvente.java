@@ -61,28 +61,4 @@ public class Envolvente {
 
         return (Double.compare(y1 * y1 + x1 * x1, y2 * y2 + x2 * x2));
     }
-    /*
-    public static void main(String[] args){
-        Point2D[] coordenadas = new Point2D[13];
-
-        coordenadas[0] = new Point2D.Double(0, 5);
-        coordenadas[1] = new Point2D.Double(-1, 1);
-        coordenadas[2] = new Point2D.Double(0, 1);
-        coordenadas[3] = new Point2D.Double(1, 1);
-        coordenadas[4] = new Point2D.Double(-5, 0);
-        coordenadas[5] = new Point2D.Double(-1, 0);
-        coordenadas[6] = new Point2D.Double(0, 0);
-        coordenadas[7] = new Point2D.Double(1, 0);
-        coordenadas[8] = new Point2D.Double(5, 0);
-        coordenadas[9] = new Point2D.Double(-1, -1);
-        coordenadas[10] = new Point2D.Double(0, -1);
-        coordenadas[11] = new Point2D.Double(1, -1);
-        coordenadas[12] = new Point2D.Double(0, -5);
-
-        ArrayList<Point2D> envolvente = encontrarEnvolvente(coordenadas);
-
-        if (envolvente.size() != 0)
-            for(int i = 0; i < envolvente.size(); i++){ System.out.println(envolvente.get(i)); }
-    }
-     */
 }
