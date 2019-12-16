@@ -5,19 +5,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.util.*;
+import java.util.List;
 import java.util.Random;
 
 
 public class Main{
     public static void main(String[] args) {
-        Point2D[] coordenadas = new Point2D[6];
-        Random random = new Random();
+        Point2D[] coordenadas = new Point2D[13];
 
+        Random random = new Random();
+        /*
         for(int i = 0; i < coordenadas.length; i++){
             coordenadas[i] = new Point2D.Double(random.nextInt(100), random.nextInt(100));
         }
+        */
 
-
+        coordenadas[0] = new Point2D.Double(54.0, 32.0);
+        coordenadas[1] = new Point2D.Double(97.0, 25.0);
+        coordenadas[2] = new Point2D.Double(73.0, 68.0);
+        coordenadas[3] = new Point2D.Double(89.0, 57.0);
+        coordenadas[4] = new Point2D.Double(72.0, 47.0);
+        coordenadas[5] = new Point2D.Double(85.0, 51.0);
+        coordenadas[6] = new Point2D.Double(61.0, 57.0);
+        coordenadas[7] = new Point2D.Double(25.0, 2.0);
+        coordenadas[8] = new Point2D.Double(11.0, 36.0);
+        coordenadas[9] = new Point2D.Double(64.0, 55.0);
+        coordenadas[10] = new Point2D.Double(66.0, 92.0);
+        coordenadas[11] = new Point2D.Double(14.0, 67.0);
+        coordenadas[12] = new Point2D.Double(95.0, 93.0);
 
         JFrame framePrincipal = new JFrame("Tarea 2 Analisis de Algoritmos"); // Create our JFrame
         // Set the layout for main frame. This controls how things get arranged on the screen
@@ -59,31 +74,43 @@ public class Main{
         btnGraham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Graham graham = new Graham();
+                Stack<Point2D> poligonoConvexoGraham = graham.crearPoligonoConvexo(coordenadas);
+                ArrayList<Point2D> puntosGraham = new ArrayList<>();
+                while (!poligonoConvexoGraham.isEmpty()){
+                    puntosGraham.add(poligonoConvexoGraham.pop());
+                }
                 JFrame frameGraham = new JFrame("Algoritmo Graham");
                 frameGraham.add(new DibujarPuntos(coordenadas));
+                frameGraham.getContentPane().add(new DibujarConvexa(puntosGraham));
                 frameGraham.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 frameGraham.pack();
                 frameGraham.setLocationRelativeTo(null);
                 frameGraham.setVisible(true);
-                Graham graham = new Graham();
-                Stack<Point2D> poligonoConvexoGraham = graham.crearPoligonoConvexo(coordenadas);
+
+
             }
         });
 
         btnJarvis.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Envolvente jarvis = new Envolvente();
+                ArrayList<Point2D> poligonoConvexoEnvolvente = jarvis.encontrarEnvolvente(coordenadas);
                 JFrame frameJarvis = new JFrame("Algoritmo envolvente (Jarvis)");
-                frameJarvis.add(new DibujarPuntos(coordenadas), BorderLayout.WEST);
+                // frameJarvis.add(new DibujarPuntos(coordenadas), BorderLayout.WEST);
                 frameJarvis.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 frameJarvis.pack();
+                frameJarvis.setBounds(40,40,300,300);
+                // frameJarvis.getContentPane().add(new DibujarPuntos(coordenadas));
+                frameJarvis.getContentPane().add(new DibujarConvexa(poligonoConvexoEnvolvente));
                 frameJarvis.setLocationRelativeTo(null);
                 frameJarvis.setVisible(true);
                 // JPanel panel_antes = new JPanel(new GridLayout(2, 1));
-                Envolvente jarvis = new Envolvente();
-                ArrayList<Point2D> poligonoConvexoEnvolvente = jarvis.encontrarEnvolvente(coordenadas);
                 // JPanel panel_despues = new JPanel(new GridLayout(rows:))
-                frameJarvis.add(new DibujarConvexa(poligonoConvexoEnvolvente), BorderLayout.EAST);
+                // frameJarvis.add(new DibujarConvexa(poligonoConvexoEnvolvente), BorderLayout.EAST);
+                // frameJarvis.getContentPane().add(new DibujarConvexa(poligonoConvexoEnvolvente));
+
             }
         });
 

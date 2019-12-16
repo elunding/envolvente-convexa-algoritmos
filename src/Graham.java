@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.geom.Point2D;
 import java.util.*;
 
@@ -44,7 +43,6 @@ public class Graham {
     }
 
     // realiza la comparacion con respecto al angulo polar
-    // Compare other points relative to polar angle (between 0 and 2*PI) they make with this point
     private static class OrdenarPorAnguloPolar implements Comparator<Point2D> {
         Point2D punto;
 
@@ -91,9 +89,4 @@ public class Graham {
                         - (b.getY() - a.getY()) * (c.getX() - a.getX());
         return (int) Math.signum(area);
     }
-
-    // public void paint(Graphics g) {
-    //    Graphics2D g2 = (Graphics2D) g;
-    // }
-
 }
