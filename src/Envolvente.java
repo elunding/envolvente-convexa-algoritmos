@@ -3,12 +3,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.swing.*;
 
 public class Envolvente {
     public static ArrayList<Point2D> encontrarEnvolvente(Point2D[] puntos){
         int largo_puntos = puntos.length;
         // validacion de parametro
         if(largo_puntos == 0) throw new IllegalArgumentException("Arreglo vacio...");
+
+
         // encontramos nuestro punto inicial, siendo el que se encuentre al extremo izquierdo
         Point2D punto_inicial = puntos[0];
         for(int i = 1; i < largo_puntos; i++){

@@ -5,30 +5,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.util.*;
+import java.util.Random;
 
 
 public class Main{
     public static void main(String[] args) {
-        Point2D[] coordenadas = new Point2D[13];
+        Point2D[] coordenadas = new Point2D[6];
+        Random random = new Random();
 
-        coordenadas[0] = new Point2D.Double(0, 5);
-        coordenadas[1] = new Point2D.Double(-1, 1);
-        coordenadas[2] = new Point2D.Double(0, 1);
-        coordenadas[3] = new Point2D.Double(1, 1);
-        coordenadas[4] = new Point2D.Double(-5, 0);
-        coordenadas[5] = new Point2D.Double(-1, 0);
-        coordenadas[6] = new Point2D.Double(0, 0);
-        coordenadas[7] = new Point2D.Double(1, 0);
-        coordenadas[8] = new Point2D.Double(5, 0);
-        coordenadas[9] = new Point2D.Double(-1, -1);
-        coordenadas[10] = new Point2D.Double(0, -1);
-        coordenadas[11] = new Point2D.Double(1, -1);
-        coordenadas[12] = new Point2D.Double(0, -5);
+        for(int i = 0; i < coordenadas.length; i++){
+            coordenadas[i] = new Point2D.Double(random.nextInt(100), random.nextInt(100));
+        }
 
 
-        JFrame frmMain = new JFrame(); // Create our JFrame
+
+        JFrame framePrincipal = new JFrame("Tarea 2 Analisis de Algoritmos"); // Create our JFrame
         // Set the layout for main frame. This controls how things get arranged on the screen
-        frmMain.setLayout(new BorderLayout());
+        framePrincipal.setSize(800, 600);
+        framePrincipal.setLayout(new BorderLayout());
 
         // panels are what you put everything else on
         JPanel panel1 = new JPanel(new FlowLayout()); // another layout
@@ -40,10 +34,6 @@ public class Main{
         JButton btnGraham = new JButton("Graham");
         JButton btnJarvis = new JButton("Envolvente (Jarvis)");
 
-        // here are a couple of textboxes. They accept typed in information
-        // JTextField txtFirstName = new JTextField();
-        // JTextField txtMiddleInitial = new JTextField();
-        JTextField numPuntosTxtField = new JTextField();
 
         // add our buttons to panel1. It has a FlowLayout, so they will be centered left to right as we add them
         panel1.add(btnGraham);
@@ -52,21 +42,8 @@ public class Main{
         // Create a panel to hold First Name
         JPanel numPuntosPanel = new JPanel(new BorderLayout()); // also set its layout
         // here we add a JLabel.class they just display text, they don't allow input
-        numPuntosPanel.add(new JLabel("Ingrese cantidad de puntos"), BorderLayout.WEST);
         // here we put our text box onto the First name panel
-        numPuntosPanel.add(numPuntosTxtField, BorderLayout.CENTER);
-        /*
-        // repeat for middle initial panel
-        JPanel pnlMiddleInitial = new JPanel(new BorderLayout());
-        pnlMiddleInitial.add(new JLabel("M.I."), BorderLayout.WEST);
-        pnlMiddleInitial.add(txtMiddleInitial, BorderLayout.CENTER);
 
-        // repeat for last name panel
-        JPanel pnlLastName = new JPanel(new BorderLayout());
-        pnlLastName.add(new JLabel("last name"), BorderLayout.WEST);
-        pnlLastName.add(txtLastName, BorderLayout.CENTER);
-        */
-        // put a 3 pixel border arounnd panel 2 to keep things away from the edge
         panel2.setBorder(new EmptyBorder(10, 10, 10, 10));
         // add all of our input panels to panel 2, according to BoxLayout (up above)
         panel2.add(numPuntosPanel);
@@ -74,27 +51,48 @@ public class Main{
         // panel2.add(pnlLastName);
 
         // add panel1 and panel2 to the Frame. You have to add to the .getContentPane(), or you might mess things up.
-        frmMain.getContentPane().add(panel1, BorderLayout.NORTH);
-        frmMain.getContentPane().add(panel2, BorderLayout.CENTER);
+        framePrincipal.getContentPane().add(panel1, BorderLayout.NORTH);
+        framePrincipal.getContentPane().add(panel2, BorderLayout.CENTER);
         
         // This is how we tell the program what to do when the user presses the "Add" button.
 
         btnGraham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame frameGraham = new JFrame("Algoritmo Graham");
+                frameGraham.add(new DibujarPuntos(coordenadas));
+                frameGraham.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                frameGraham.pack();
+                frameGraham.setLocationRelativeTo(null);
+                frameGraham.setVisible(true);
                 Graham graham = new Graham();
                 Stack<Point2D> poligonoConvexoGraham = graham.crearPoligonoConvexo(coordenadas);
             }
         });
 
+        btnJarvis.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frameJarvis = new JFrame("Algoritmo envolvente (Jarvis)");
+                frameJarvis.add(new DibujarPuntos(coordenadas), BorderLayout.WEST);
+                frameJarvis.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                frameJarvis.pack();
+                frameJarvis.setLocationRelativeTo(null);
+                frameJarvis.setVisible(true);
+                // JPanel panel_antes = new JPanel(new GridLayout(2, 1));
+                Envolvente jarvis = new Envolvente();
+                ArrayList<Point2D> poligonoConvexoEnvolvente = jarvis.encontrarEnvolvente(coordenadas);
+                // JPanel panel_despues = new JPanel(new GridLayout(rows:))
+                frameJarvis.add(new DibujarConvexa(poligonoConvexoEnvolvente), BorderLayout.EAST);
+            }
+        });
+
         // pack just makes everything take up it's proper space on the screen in as tight of a package as possible
-        frmMain.pack();
+        framePrincipal.pack();
         // if you don't set visible to true, you won't see your Frame
-        frmMain.setVisible(true);
+        framePrincipal.setVisible(true);
         // what to do when the user clicks the "X" to close or used "Close" from the context menu
-        frmMain.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-
+        framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
 
 
