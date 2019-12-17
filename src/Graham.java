@@ -39,6 +39,7 @@ public class Graham {
             envolvente.push(top);
             envolvente.push(coordenadas[k]);
         }
+
         return envolvente;
     }
 

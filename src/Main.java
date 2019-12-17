@@ -85,6 +85,7 @@ public class Main{
                 frameGraham.getContentPane().add(new DibujarConvexa(puntosGraham));
                 frameGraham.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 frameGraham.pack();
+                frameGraham.setBounds(40,40,300,300);
                 frameGraham.setLocationRelativeTo(null);
                 frameGraham.setVisible(true);
 
