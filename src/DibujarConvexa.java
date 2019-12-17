@@ -9,15 +9,20 @@ import javax.swing.JPanel;
 public class DibujarConvexa extends JPanel {
 
     private List<Object> shapes = new ArrayList<>();
-
     private int xPanel = getWidth();
     private int yPanel = getHeight();
 
-    public DibujarConvexa(ArrayList<Point2D> coordenadas) {
+    public DibujarConvexa(ArrayList<Point2D> coordenadas, Point2D[] puntos) {
         super(true);
-        int largo_coordenadas = coordenadas.size();
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(512, 448));
+        int largo_coordenadas = coordenadas.size();
+        int largo_puntos = puntos.length;
+
+        for (int i = 0; i < largo_puntos; i++) {
+            addCircle((int)puntos[i].getX(), (int)puntos[i].getY());
+        }
+
         for (int i = 0; i < largo_coordenadas; i++) {
             int next_index = i + 1;
             if (next_index >= largo_coordenadas){
@@ -36,9 +41,13 @@ public class DibujarConvexa extends JPanel {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+
         for (Object s: shapes){
             if (s instanceof Linea){
                 ((Linea) s).draw(g);
+            }
+            else if(s instanceof Circulo){
+                ((Circulo) s).draw(g);
             }
         }
     }
@@ -47,4 +56,10 @@ public class DibujarConvexa extends JPanel {
         shapes.add(new Linea(x1, y1, x2, y2, xPanel, yPanel));
         repaint();
     }
+
+    public void addCircle(int maxX, int maxY) {
+        shapes.add(new Circulo(maxX, maxY));
+        repaint();
+    }
+
 }
