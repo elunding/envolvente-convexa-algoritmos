@@ -1,8 +1,5 @@
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Envolvente {
     public static ArrayList<Point2D> encontrarEnvolvente(Point2D[] puntos){
@@ -20,8 +17,10 @@ public class Envolvente {
         }
         Point2D punto_actual = punto_inicial;
 
-        Set<Point2D> resultados = new HashSet<>();
-        resultados.add(punto_inicial);
+        // Set<Point2D> resultados = new HashSet<>();
+        Stack<Point2D> resultados = new Stack<>();
+        // resultados.add(punto_inicial);
+        resultados.push(punto_inicial);
         List<Point2D> puntos_colineares = new ArrayList<>();
         while(true){
             Point2D punto_siguiente = puntos[0];
@@ -47,11 +46,13 @@ public class Envolvente {
                     } else { puntos_colineares.add(puntos[i]); }
                 }
             }
-            for(Point2D p: puntos_colineares){ resultados.add(p); }
+            // for(Point2D p: puntos_colineares){ resultados.add(p); }
+            for(Point2D p: puntos_colineares){ resultados.push(p); }
             // condicion de termino (si el punto_siguiente igual a punto_inicial hemos
             // llegado al fin del recorrido).
             if(punto_siguiente == punto_inicial){ break; }
-            resultados.add(punto_siguiente);
+            // resultados.add(punto_siguiente);
+            resultados.push(punto_siguiente);
             punto_actual = punto_siguiente;
         }
 

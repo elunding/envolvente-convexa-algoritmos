@@ -11,6 +11,7 @@ public class DibujarPuntos extends JPanel {
     private List<Object> shapes = new ArrayList<>();
 
     public DibujarPuntos(Point2D[] coordenadas) {
+        super(true);
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(512, 448));
 

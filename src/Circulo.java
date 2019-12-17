@@ -1,6 +1,4 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class Circulo {
@@ -14,8 +12,8 @@ public class Circulo {
 
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Ellipse2D.Double circulo = new Ellipse2D.Double(x, y, 10, 10);
-
         g2d.setColor(Color.RED);
         g2d.fill(circulo);
     }

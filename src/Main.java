@@ -83,6 +83,7 @@ public class Main{
                 JFrame frameGraham = new JFrame("Algoritmo Graham");
                 frameGraham.add(new DibujarPuntos(coordenadas));
                 frameGraham.getContentPane().add(new DibujarConvexa(puntosGraham));
+                // frameGraham.getContentPane().add(new DibujarPuntos(puntosGraham));
                 frameGraham.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 frameGraham.pack();
                 frameGraham.setBounds(40,40,300,300);
