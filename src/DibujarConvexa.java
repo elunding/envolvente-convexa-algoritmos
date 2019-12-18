@@ -13,23 +13,23 @@ public class DibujarConvexa extends JPanel {
     public DibujarConvexa(ArrayList<Point2D> coordenadas, Point2D[] puntos) {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(512, 448));
-        int largo_coordenadas = coordenadas.size();
-        int largo_puntos = puntos.length;
+        int largoCoordenadas = coordenadas.size();
+        int largoPuntos = puntos.length;
 
-        for (int i = 0; i < largo_puntos; i++) {
+        for (int i = 0; i < largoPuntos; i++) {
             agregarCirculo((int)puntos[i].getX(), (int)puntos[i].getY());
         }
 
-        for (int i = 0; i < largo_coordenadas; i++) {
-            int next_index = i + 1;
-            if (next_index >= largo_coordenadas){
-                next_index = 0;
+        for (int i = 0; i < largoCoordenadas; i++) {
+            int indiceSiguiente = i + 1;
+            if (indiceSiguiente >= largoCoordenadas){
+                indiceSiguiente = 0;
             }
 
             int x1 = (int)coordenadas.get(i).getX();
             int y1 = (int)coordenadas.get(i).getY();
-            int x2 = (int)coordenadas.get(next_index).getX();
-            int y2 = (int)coordenadas.get(next_index).getY();
+            int x2 = (int)coordenadas.get(indiceSiguiente).getX();
+            int y2 = (int)coordenadas.get(indiceSiguiente).getY();
             agregarLinea(x1, y1, x2, y2);
         }
 
