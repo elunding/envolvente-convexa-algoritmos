@@ -26,54 +26,39 @@ public class Main{
         puntos[11] = new Point2D.Double(14.0, 67.0);
         puntos[12] = new Point2D.Double(95.0, 93.0);
         */
-        JFrame framePrincipal = new JFrame("Tarea 2 Analisis de Algoritmos"); // Create our JFrame
-        // Set the layout for main frame. This controls how things get arranged on the screen
+        JFrame framePrincipal = new JFrame("Tarea 2 Analisis de Algoritmos");
         framePrincipal.setSize(800, 600);
         framePrincipal.setLayout(new BorderLayout());
 
-        // panels are what you put everything else on
-        JPanel panelBotones = new JPanel(); // another layout
+        JPanel panelBotones = new JPanel();
         JPanel panelTextBox = new JPanel();
-        BoxLayout box = new BoxLayout(panelTextBox, BoxLayout.PAGE_AXIS); // another layout
+        BoxLayout box = new BoxLayout(panelTextBox, BoxLayout.PAGE_AXIS);
         panelTextBox.setLayout(box);
-        // here are a couple of buttons
         JButton btnGraham = new JButton("Graham");
         JButton btnJarvis = new JButton("Envolvente (Jarvis)");
         JTextField numCoordenadasTxtField = new JTextField();
-        // numCoordenadasTxtField.setFont()
-        // add our buttons to panelBotones. It has a FlowLayout, so they will be centered left to right as we add them
         panelBotones.add(btnGraham);
         panelBotones.add(btnJarvis);
-        // panelBotones.add(numCoordenadasTxtField);
-        // Create a panel to hold First Name
         JPanel numPuntosPanel = new JPanel(new BorderLayout()); // also set its layout
-        JLabel numCoordenadasLabel = new JLabel("Ingrese número de coordenadas (50 máximo)");
+        JLabel numCoordenadasLabel = new JLabel("Ingrese número de coordenadas (100 máximo)");
         numPuntosPanel.setBorder(new EmptyBorder(10,10,10,10));
         numPuntosPanel.add(numCoordenadasLabel, BorderLayout.NORTH);
         numPuntosPanel.add(numCoordenadasTxtField, BorderLayout.SOUTH);
-        // here we add a JLabel.class they just display text, they don't allow input
-        // here we put our text box onto the First name panel
         panelTextBox.setBorder(new EmptyBorder(10, 10, 10, 10));
-        // add all of our input panels to panel 2, according to BoxLayout (up above)
         panelTextBox.add(numPuntosPanel);
 
-        // add panelBotones and panelTextBox to the Frame. You have to add to the .getContentPane(), or you might mess things up.
         framePrincipal.getContentPane().add(panelBotones, BorderLayout.SOUTH);
         framePrincipal.getContentPane().add(panelTextBox, BorderLayout.CENTER);
         framePrincipal.getContentPane().add(numPuntosPanel, BorderLayout.NORTH);
-        /**
-        Point2D[] puntos = new Point2D[13];
-
-        Random random = new Random();
-
-        for(int i = 0; i < puntos.length; i++){
-            puntos[i] = new Point2D.Double(random.nextInt(100), random.nextInt(100));
-        }*/
 
         btnGraham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int numPuntosInput = Integer.parseInt(numCoordenadasTxtField.getText());
+                if(numPuntosInput >= 100) {
+                    // si la cantidad excede el valor maximo permitido, se setea a ese valor
+                    numPuntosInput = 100;
+                }
                 Graham graham = new Graham();
                 Point2D[] puntos = new Point2D[numPuntosInput];
                 // genera el arreglo de puntos
@@ -103,7 +88,10 @@ public class Main{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int numPuntosInput = Integer.parseInt(numCoordenadasTxtField.getText());
-                Graham graham = new Graham();
+                if(numPuntosInput >= 100) {
+                    // si la cantidad excede el valor maximo permitido, se setea a ese valor
+                    numPuntosInput = 100;
+                }
                 Point2D[] puntos = new Point2D[numPuntosInput];
                 // genera el arreglo de puntos
                 Random random = new Random();

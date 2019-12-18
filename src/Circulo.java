@@ -13,7 +13,7 @@ public class Circulo {
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Ellipse2D.Double circulo = new Ellipse2D.Double(x, y, 10, 10);
+        Ellipse2D.Double circulo = new Ellipse2D.Double(x, y, 7, 7);
         g2d.setColor(Color.RED);
         g2d.fill(circulo);
     }

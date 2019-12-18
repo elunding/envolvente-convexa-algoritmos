@@ -20,7 +20,7 @@ public class DibujarConvexa extends JPanel {
         int largo_puntos = puntos.length;
 
         for (int i = 0; i < largo_puntos; i++) {
-            addCircle((int)puntos[i].getX(), (int)puntos[i].getY());
+            agregarCirculo((int)puntos[i].getX(), (int)puntos[i].getY());
         }
 
         for (int i = 0; i < largo_coordenadas; i++) {
@@ -33,7 +33,7 @@ public class DibujarConvexa extends JPanel {
             int y1 = (int)coordenadas.get(i).getY();
             int x2 = (int)coordenadas.get(next_index).getX();
             int y2 = (int)coordenadas.get(next_index).getY();
-            addLinea(x1, y1, x2, y2);
+            agregarLinea(x1, y1, x2, y2);
         }
 
     }
@@ -52,12 +52,12 @@ public class DibujarConvexa extends JPanel {
         }
     }
 
-    public void addLinea(int x1, int y1, int x2, int y2){
+    public void agregarLinea(int x1, int y1, int x2, int y2){
         shapes.add(new Linea(x1, y1, x2, y2, xPanel, yPanel));
         repaint();
     }
 
-    public void addCircle(int maxX, int maxY) {
+    public void agregarCirculo(int maxX, int maxY) {
         shapes.add(new Circulo(maxX, maxY));
         repaint();
     }
