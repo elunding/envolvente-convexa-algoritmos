@@ -9,6 +9,20 @@ import java.util.Random;
 
 
 public class Main{
+
+    public static Point2D[] crearArregloCoordenadas(int numPuntos){
+        Point2D[] puntos = new Point2D[numPuntos];
+        // genera el arreglo de puntos
+        Random random = new Random();
+
+        for(int i = 0; i < puntos.length; i++) {
+            puntos[i] = new Point2D.Double(random.nextInt(100), random.nextInt(100));
+        }
+
+        return puntos;
+    }
+
+
     public static void main(String[] args) {
         /**
          * debug:
@@ -36,9 +50,11 @@ public class Main{
         panelTextBox.setLayout(box);
         JButton btnGraham = new JButton("Graham");
         JButton btnJarvis = new JButton("Envolvente (Jarvis)");
+        JButton btnQuickHull = new JButton("QuickHull");
         JTextField numCoordenadasTxtField = new JTextField();
         panelBotones.add(btnGraham);
         panelBotones.add(btnJarvis);
+        panelBotones.add(btnQuickHull);
         JPanel numPuntosPanel = new JPanel(new BorderLayout()); // also set its layout
         JLabel numCoordenadasLabel = new JLabel("Ingrese número de coordenadas (100 máximo)");
         numPuntosPanel.setBorder(new EmptyBorder(10,10,10,10));
@@ -59,14 +75,9 @@ public class Main{
                     // si la cantidad excede el valor maximo permitido, se setea a ese valor
                     numPuntosInput = 100;
                 }
-                Graham graham = new Graham();
-                Point2D[] puntos = new Point2D[numPuntosInput];
-                // genera el arreglo de puntos
-                Random random = new Random();
 
-                for(int i = 0; i < puntos.length; i++) {
-                    puntos[i] = new Point2D.Double(random.nextInt(100), random.nextInt(100));
-                }
+                Point2D[] puntos = crearArregloCoordenadas(numPuntosInput);
+                Graham graham = new Graham();
                 Stack<Point2D> poligonoConvexoGraham = graham.crearPoligonoConvexo(puntos);
                 ArrayList<Point2D> puntosGraham = new ArrayList<>();
                 while (!poligonoConvexoGraham.isEmpty()){
@@ -79,8 +90,6 @@ public class Main{
                 frameGraham.setBounds(40,40,300,300);
                 frameGraham.setLocationRelativeTo(null);
                 frameGraham.setVisible(true);
-
-
             }
         });
 
@@ -92,13 +101,7 @@ public class Main{
                     // si la cantidad excede el valor maximo permitido, se setea a ese valor
                     numPuntosInput = 100;
                 }
-                Point2D[] puntos = new Point2D[numPuntosInput];
-                // genera el arreglo de puntos
-                Random random = new Random();
-
-                for(int i = 0; i < puntos.length; i++) {
-                    puntos[i] = new Point2D.Double(random.nextInt(100), random.nextInt(100));
-                }
+                Point2D[] puntos = crearArregloCoordenadas(numPuntosInput);
                 Envolvente jarvis = new Envolvente();
                 ArrayList<Point2D> poligonoConvexoEnvolvente = jarvis.encontrarEnvolvente(puntos);
                 JFrame frameJarvis = new JFrame("Algoritmo envolvente (Jarvis)");
@@ -110,10 +113,8 @@ public class Main{
                 frameJarvis.setVisible(true);
             }
         });
-
         framePrincipal.pack();
         framePrincipal.setVisible(true);
         framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 }
