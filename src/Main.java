@@ -36,22 +36,7 @@ public class Main{
 
 
     public static void main(String[] args) {
-        /**
-         * debug:
-        puntos[0] = new Point2D.Double(54.0, 32.0);
-        puntos[1] = new Point2D.Double(97.0, 25.0);
-        puntos[2] = new Point2D.Double(73.0, 68.0);
-        puntos[3] = new Point2D.Double(89.0, 57.0);
-        puntos[4] = new Point2D.Double(72.0, 47.0);
-        puntos[5] = new Point2D.Double(85.0, 51.0);
-        puntos[6] = new Point2D.Double(61.0, 57.0);
-        puntos[7] = new Point2D.Double(25.0, 2.0);
-        puntos[8] = new Point2D.Double(11.0, 36.0);
-        puntos[9] = new Point2D.Double(64.0, 55.0);
-        puntos[10] = new Point2D.Double(66.0, 92.0);
-        puntos[11] = new Point2D.Double(14.0, 67.0);
-        puntos[12] = new Point2D.Double(95.0, 93.0);
-        */
+
         JFrame framePrincipal = new JFrame("Tarea 2 Analisis de Algoritmos");
         framePrincipal.setSize(800, 600);
         framePrincipal.setLayout(new BorderLayout());

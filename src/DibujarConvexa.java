@@ -9,11 +9,8 @@ import javax.swing.JPanel;
 public class DibujarConvexa extends JPanel {
 
     private List<Object> shapes = new ArrayList<>();
-    // private int xPanel = getWidth();
-    // private int yPanel = getHeight();
 
     public DibujarConvexa(ArrayList<Point2D> coordenadas, Point2D[] puntos) {
-        super(true);
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(512, 448));
         int largo_coordenadas = coordenadas.size();

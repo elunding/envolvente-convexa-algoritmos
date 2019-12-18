@@ -63,9 +63,9 @@ public class Envolvente {
      * Producto cruz o vectorial para encontrar la posición de p3 con respecto
      * al vector p1p2.
      *
-     * @param p1 Point2D
-     * @param p2 Point2D
-     * @param p3 Point2D
+     * @param p1 objeto Point2D
+     * @param p2 objeto Point2D
+     * @param p3 objeto Point2D
      * @return > 0 si p3 esta a la izq de p1p2
      *         == 0 si p1, p2 y p3 son colineares
      *         < 0 si p3 esta a la derecha de p1p2
@@ -82,9 +82,9 @@ public class Envolvente {
 
     /**
      *
-     * @param p1 Point2D
-     * @param p2 Point2D
-     * @param p3 Point2D
+     * @param p1 objeto Point2D
+     * @param p2 objeto Point2D
+     * @param p3 objeto Point2D
      * @return < 0 si 'p2' esta mas cerca que 'p1' en comparacion a 'p3'
      *         == 0 si 'p2' y 'p3' estan a la misma distancia de 'p1'
      *         > 0 si 'p3' esta mas cerca de 'p1' que 'p2'
