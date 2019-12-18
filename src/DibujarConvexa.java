@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 public class DibujarConvexa extends JPanel {
 
     private List<Object> shapes = new ArrayList<>();
-    private int xPanel = getWidth();
-    private int yPanel = getHeight();
+    // private int xPanel = getWidth();
+    // private int yPanel = getHeight();
 
     public DibujarConvexa(ArrayList<Point2D> coordenadas, Point2D[] puntos) {
         super(true);
@@ -53,7 +53,7 @@ public class DibujarConvexa extends JPanel {
     }
 
     public void agregarLinea(int x1, int y1, int x2, int y2){
-        shapes.add(new Linea(x1, y1, x2, y2, xPanel, yPanel));
+        shapes.add(new Linea(x1, y1, x2, y2));
         repaint();
     }
 
