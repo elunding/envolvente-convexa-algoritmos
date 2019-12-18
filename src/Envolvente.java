@@ -3,57 +3,57 @@ import java.util.*;
 
 public class Envolvente {
     public static ArrayList<Point2D> encontrarEnvolvente(Point2D[] puntos){
-        int largo_puntos = puntos.length;
+        int largoPuntos = puntos.length;
         // validacion de parametro
-        if(largo_puntos == 0) throw new IllegalArgumentException("Arreglo vacio...");
+        if(largoPuntos == 0) throw new IllegalArgumentException("Arreglo vacio...");
 
 
         // encontramos nuestro punto inicial, siendo el que se encuentre al extremo izquierdo
-        Point2D punto_inicial = puntos[0];
-        for(int i = 1; i < largo_puntos; i++){
-            if(puntos[i].getX() < punto_inicial.getX()){
-                punto_inicial = puntos[i];
+        Point2D puntoInicial = puntos[0];
+        for(int i = 1; i < largoPuntos; i++){
+            if(puntos[i].getX() < puntoInicial.getX()){
+                puntoInicial = puntos[i];
             }
         }
-        Point2D punto_actual = punto_inicial;
+        Point2D puntoActual = puntoInicial;
 
         // Set<Point2D> resultados = new HashSet<>();
         Stack<Point2D> resultados = new Stack<>();
-        // resultados.add(punto_inicial);
-        resultados.push(punto_inicial);
-        List<Point2D> puntos_colineares = new ArrayList<>();
+        // resultados.add(puntoInicial);
+        resultados.push(puntoInicial);
+        List<Point2D> puntosColineares = new ArrayList<>();
         while(true){
-            Point2D punto_siguiente = puntos[0];
-            for(int i = 1; i < largo_puntos; i++){
-                if(puntos[i] == punto_actual) continue;
-                int producto_vectorial = productoVectorial(punto_actual, punto_siguiente, puntos[i]);
-                // si producto_vectorial > 0 entonces puntos[i] esta a la izq del vector
-                // punto_actual --> punto_siguiente
-                if(producto_vectorial > 0){
+            Point2D puntoSiguiente = puntos[0];
+            for(int i = 1; i < largoPuntos; i++){
+                if(puntos[i] == puntoActual) continue;
+                int productoVectorial = productoVectorial(puntoActual, puntoSiguiente, puntos[i]);
+                // si productoVectorial > 0 entonces puntos[i] esta a la izq del vector
+                // puntoActual --> puntoSiguiente
+                if(productoVectorial > 0){
                     // como esta a la izquierda, quiere decir que es un punto mas exterior,
                     // por lo tanto sera el siguiente punto
-                    punto_siguiente = puntos[i];
-                    puntos_colineares = new ArrayList<>();
-                // si producto_vectorial = 0, entonces los puntos son colineares
-                } else if(producto_vectorial == 0){
-                    // si se cumple este if, punto_siguiente esta mas cerca a punto_actual que
+                    puntoSiguiente = puntos[i];
+                    puntosColineares = new ArrayList<>();
+                // si productoVectorial = 0, entonces los puntos son colineares
+                } else if(productoVectorial == 0){
+                    // si se cumple este if, puntoSiguiente esta mas cerca a puntoActual que
                     // puntos[i]
-                    if(distancia_entre(punto_actual, punto_siguiente, puntos[i]) < 0){
-                        // por lo que se añade punto_siguiente a los puntos_colineares
+                    if(distanciaEntre(puntoActual, puntoSiguiente, puntos[i]) < 0){
+                        // por lo que se añade puntoSiguiente a los puntosColineares
                         // y siendo el siguiente_punto puntos[i]
-                        puntos_colineares.add(punto_siguiente);
-                        punto_siguiente = puntos[i];
-                    } else { puntos_colineares.add(puntos[i]); }
+                        puntosColineares.add(puntoSiguiente);
+                        puntoSiguiente = puntos[i];
+                    } else { puntosColineares.add(puntos[i]); }
                 }
             }
-            // for(Point2D p: puntos_colineares){ resultados.add(p); }
-            for(Point2D p: puntos_colineares){ resultados.push(p); }
-            // condicion de termino (si el punto_siguiente igual a punto_inicial hemos
+            // for(Point2D p: puntosColineares){ resultados.add(p); }
+            for(Point2D p: puntosColineares){ resultados.push(p); }
+            // condicion de termino (si el puntoSiguiente igual a puntoInicial hemos
             // llegado al fin del recorrido).
-            if(punto_siguiente == punto_inicial){ break; }
-            // resultados.add(punto_siguiente);
-            resultados.push(punto_siguiente);
-            punto_actual = punto_siguiente;
+            if(puntoSiguiente == puntoInicial){ break; }
+            // resultados.add(puntoSiguiente);
+            resultados.push(puntoSiguiente);
+            puntoActual = puntoSiguiente;
         }
 
         return new ArrayList<>(resultados);
@@ -89,7 +89,7 @@ public class Envolvente {
      *         == 0 si 'p2' y 'p3' estan a la misma distancia de 'p1'
      *         > 0 si 'p3' esta mas cerca de 'p1' que 'p2'
      */
-    private static int distancia_entre(Point2D p1, Point2D p2, Point2D p3){
+    private static int distanciaEntre(Point2D p1, Point2D p2, Point2D p3){
         double x1 = p1.getX() - p2.getX();
         double x2 = p1.getX() - p3.getX();
         double y1 = p1.getY() - p2.getY();

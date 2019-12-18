@@ -5,9 +5,9 @@ public class Graham {
 
     // Crea el poligono convexo (como un stack de puntos)
     public static Stack<Point2D> crearPoligonoConvexo(Point2D[] coordenadas) {
-        int largo_coordenadas = coordenadas.length;
+        int largoCoordenadas = coordenadas.length;
         int i, j;
-        if (largo_coordenadas == 0) throw new IllegalArgumentException("Arreglo de coordenadas vacio...");
+        if (largoCoordenadas == 0) throw new IllegalArgumentException("Arreglo de coordenadas vacio...");
 
         // inicializamos el stack de puntos de la envolvente convexa
         Stack<Point2D> envolvente = new Stack<Point2D>();
@@ -16,22 +16,22 @@ public class Graham {
         Arrays.sort(coordenadas, new OrdenarPorY());
         // Volvemos a ordenar el arreglo de coordenadas, pero esta vez con respecto al angulo polar entre el
         // primer elemento (el de menor valor Y), y los demas puntos.
-        Arrays.sort(coordenadas, 1, largo_coordenadas, new OrdenarPorAnguloPolar(coordenadas[0]));
+        Arrays.sort(coordenadas, 1, largoCoordenadas, new OrdenarPorAnguloPolar(coordenadas[0]));
         // insertamos el primer elemento del arreglo (nuestro punto de referencia) al stack de la envolvente.
         envolvente.push(coordenadas[0]);
-        for (i = 1; i < largo_coordenadas; i++) {
+        for (i = 1; i < largoCoordenadas; i++) {
             if (!coordenadas[0].equals(coordenadas[i])) {
                 break;
             }
         }
-        if (i == largo_coordenadas) return null;
-        for (j = i + 1; j < largo_coordenadas; j++) {
+        if (i == largoCoordenadas) return null;
+        for (j = i + 1; j < largoCoordenadas; j++) {
             if (VerificarOrientacion(coordenadas[0], coordenadas[i], coordenadas[j]) != 0) {
                 break;
             }
         }
         envolvente.push(coordenadas[j - 1]);
-        for (int k = j; k < largo_coordenadas; k++) {
+        for (int k = j; k < largoCoordenadas; k++) {
             Point2D top = envolvente.pop();
             while (VerificarOrientacion(envolvente.peek(), top, coordenadas[k]) <= 0) {
                 top = envolvente.pop();
