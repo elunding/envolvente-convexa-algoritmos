@@ -5,29 +5,33 @@ import java.util.List;
 
 public class QuickHull {
 
-    public static ArrayList<Point2D> envolventeQuickHull(List<Point2D> nube) {
-        ArrayList<Point2D> cerradura = new ArrayList<Point2D>();
-        Point2D min_x = new Point2D.Double(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-        Point2D max_x = new Point2D.Double(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-        for(Point2D aux:nube) {
-            if(aux.getX()<min_x.getX()) {
-                min_x = aux;
+    //Entra una list con los puntos x,y respectivamente al metodo principal
+    public static ArrayList<Point2D> envolventeQuickHull(List<Point2D> listaDePuntos) {
+        //Se crea arreglo del tipo POINT2D para los puntos que definiran el cierre convexo
+        ArrayList<Point2D> cierreGeometrico = new ArrayList<Point2D>();
+        //Se definen los puntos maximos y minimos de una coordenada
+        Point2D minX = new Point2D.Double(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        Point2D maxX = new Point2D.Double(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+        for(Point2D aux:listaDePuntos) {
+            //Se recorre la lista de puntos entrante
+            //Se guarda los puntos minimos y maximos mientras se recorren los puntos que entraron 
+            if(aux.getX()<minX.getX()) {
+                minX = aux;
             }
-            if(aux.getX()>max_x.getX()) {
-                max_x = aux;
+            if(aux.getX()>maxX.getX()) {
+                maxX = aux;
             }
         }
-        List<Point2D> S1 = puntosLado(min_x, max_x, nube);
-        List<Point2D> S2 = puntosLado(max_x, min_x, nube);
-        cerradura.add(min_x);
-        cerradura.addAll(encontrarEnvolvente(min_x, max_x, S1));
-        cerradura.add(max_x);
-        cerradura.addAll(encontrarEnvolvente(max_x, min_x, S2));
-        return cerradura;
-    }
+        List<Point2D> S1 = puntosLado(minX, maxX, listaDePuntos);
+        List<Point2D> S2 = puntosLado(maxX, minX, listaDePuntos);
+        cierreGeometrico.add(minX);
+        cierreGeometrico.addAll(encontrarEnvolvente(minX, maxX, S1));
+        cierreGeometrico.add(maxX);
+        cierreGeometrico.addAll(encontrarEnvolvente(maxX, minX, S2));
+        return cierreGeometrico; // returna los puntos finales que generan el cierre
 
     public static List<Point2D> encontrarEnvolvente(Point2D a, Point2D b, List<Point2D> S) {
-        List<Point2D> cerradura = new ArrayList<Point2D>();
+        List<Point2D> cierreGeometrico = new ArrayList<Point2D>();
         Point2D c;
         if(!S.isEmpty()) {
             List<Point2D> A;
@@ -36,34 +40,27 @@ public class QuickHull {
             A = puntosLado(a, c, S);
             B = puntosLado(c, b, S);
             // llamada recursiva con conjunto A
-            cerradura.addAll(encontrarEnvolvente(a, c, A));
-            cerradura.add(c);
+            cierreGeometrico.addAll(encontrarEnvolvente(a, c, A));
+            cierreGeometrico.add(c);
             // llamada recursiva con conjunto B
-            cerradura.addAll(encontrarEnvolvente(c, b, B));
+            cierreGeometrico.addAll(encontrarEnvolvente(c, b, B));
         }
-        return cerradura;
+        return cierreGeometrico;
 
     }
 
-    /**
-     *
-     * @param a Objeto Point2D
-     * @param b Objeto Point2D
-     * @param S Objeto Point2D
-     * @return subset (Lista de Point2D):
-     * Subconjunto de puntos que se encuentran a la izquierda del vector
-     * ab
-     */
+ 
     public static List<Point2D> puntosLado(Point2D a, Point2D b, List<Point2D> S) {
-        List<Point2D> subset = new ArrayList<Point2D>();
-        for(Point2D aux:S) {
+        //Se define una nueva lista de Point2D: subConjunto
+        List<Point2D> subConjunto = new ArrayList<Point2D>();
+        for(Point2D aux:S) { // Se recorren los puntos para encontrar los izquierdos del vector ab
             if(isLeft(a, b, aux)>0) {
                 if(!aux.equals(a) && !aux.equals(b)) {
-                    subset.add(aux);
+                    subConjunto.add(aux);
                 }
             }
         }
-        return subset;
+        return subConjunto;
     }
 
     private static double isLeft(Point2D P0, Point2D P1, Point2D P2) {
@@ -71,14 +68,8 @@ public class QuickHull {
                 (P2.getX() - P0.getX())*(P1.getY() - P0.getY());
     }
 
-    /**
-     *
-     * @param a Objeto Point2D
-     * @param b Objeto Point2D
-     * @param S Lista de objetos Point2D
-     * @return punto (Point2D) que esta fuera del Area
-     */
 
+    //funcion que retorna los numeros que estan fuera del area
     public static Point2D puntoMayorArea(Point2D a, Point2D b, List<Point2D> S) {
         Point2D punto = new Point2D.Double();
         double area = Double.MIN_VALUE;
@@ -92,6 +83,7 @@ public class QuickHull {
         return punto;
     }
 
+    //Returna el determinanate los puntos 
     public static double determinante(Point2D p1, Point2D p2, Point2D p3){
         double det = 0;
         det = p2.getY() * p3.getX() + p1.getY() * p2.getX() + p1.getX() * p3.getY();
