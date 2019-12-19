@@ -12,13 +12,13 @@ public class QuickHull {
         //Se definen los puntos maximos y minimos de una coordenada
         Point2D minX = new Point2D.Double(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
         Point2D maxX = new Point2D.Double(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-        for(Point2D aux:listaDePuntos) {
+        for (Point2D aux : listaDePuntos) {
             //Se recorre la lista de puntos entrante
             //Se guarda los puntos minimos y maximos mientras se recorren los puntos que entraron 
-            if(aux.getX()<minX.getX()) {
+            if (aux.getX() < minX.getX()) {
                 minX = aux;
             }
-            if(aux.getX()>maxX.getX()) {
+            if (aux.getX() > maxX.getX()) {
                 maxX = aux;
             }
         }
@@ -29,7 +29,7 @@ public class QuickHull {
         cierreGeometrico.add(maxX);
         cierreGeometrico.addAll(encontrarEnvolvente(maxX, minX, S2));
         return cierreGeometrico; // returna los puntos finales que generan el cierre
-
+    }
     public static List<Point2D> encontrarEnvolvente(Point2D a, Point2D b, List<Point2D> S) {
         List<Point2D> cierreGeometrico = new ArrayList<Point2D>();
         Point2D c;

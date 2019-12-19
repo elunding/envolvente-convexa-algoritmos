@@ -10,7 +10,7 @@ public class Circulo {
         this.y = y;
     }
 
-    public void draw(Graphics g) {
+    public void dibujar(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Ellipse2D.Double circulo = new Ellipse2D.Double(x, y, 5, 5);

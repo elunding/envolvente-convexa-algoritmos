@@ -41,10 +41,10 @@ public class DibujarConvexa extends JPanel {
 
         for (Object s: shapes){
             if (s instanceof Linea){
-                ((Linea) s).draw(g);
+                ((Linea) s).dibujar(g);
             }
             else if(s instanceof Circulo){
-                ((Circulo) s).draw(g);
+                ((Circulo) s).dibujar(g);
             }
         }
     }

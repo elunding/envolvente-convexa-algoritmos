@@ -11,9 +11,9 @@ import java.util.Random;
 
 public class Main{
 
+    // retorna un arreglo de Point2D
     public static Point2D[] crearArregloCoordenadas(int numPuntos){
         Point2D[] puntos = new Point2D[numPuntos];
-        // genera el arreglo de puntos
         Random random = new Random();
 
         for(int i = 0; i < puntos.length; i++) {
@@ -23,6 +23,7 @@ public class Main{
         return puntos;
     }
 
+    // retorna una lista de Point2D
     public static List<Point2D> crearListaCoordenadas(int numPuntos){
         List<Point2D> puntos = new ArrayList<>();
         Random random = new Random();
@@ -34,47 +35,55 @@ public class Main{
         return puntos;
     }
 
+    public static int validarNumPuntos(int numPuntos){
+        return Math.min(numPuntos, 100);
+    }
+
 
     public static void main(String[] args) {
-
+        // ventana principal
         JFrame framePrincipal = new JFrame("Tarea 2 Analisis de Algoritmos");
         framePrincipal.setSize(800, 600);
         framePrincipal.setLayout(new BorderLayout());
 
+        // texto numero coordenadas
+        JLabel numCoordenadasLabel = new JLabel("Ingrese número de coordenadas (100 máximo)");
+
+        // text box coordenadas
+        JTextField numCoordenadasTxtField = new JTextField();
+
+        // paneles
         JPanel panelBotones = new JPanel();
         JPanel panelTextBox = new JPanel();
+        JPanel panelNumPuntos = new JPanel(new BorderLayout());
         BoxLayout box = new BoxLayout(panelTextBox, BoxLayout.PAGE_AXIS);
+        panelNumPuntos.setBorder(new EmptyBorder(10,10,10,10));
         panelTextBox.setLayout(box);
+        panelTextBox.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        // botones
         JButton btnGraham = new JButton("Graham");
         JButton btnJarvis = new JButton("Envolvente (Jarvis)");
         JButton btnQuickHull = new JButton("QuickHull");
-        JTextField numCoordenadasTxtField = new JTextField();
+
         panelBotones.add(btnGraham);
         panelBotones.add(btnJarvis);
         panelBotones.add(btnQuickHull);
-        JPanel numPuntosPanel = new JPanel(new BorderLayout());
-        JLabel numCoordenadasLabel = new JLabel("Ingrese número de coordenadas (100 máximo)");
-        numPuntosPanel.setBorder(new EmptyBorder(10,10,10,10));
-        numPuntosPanel.add(numCoordenadasLabel, BorderLayout.NORTH);
-        numPuntosPanel.add(numCoordenadasTxtField, BorderLayout.SOUTH);
-        panelTextBox.setBorder(new EmptyBorder(10, 10, 10, 10));
-        panelTextBox.add(numPuntosPanel);
+        panelNumPuntos.add(numCoordenadasLabel, BorderLayout.NORTH);
+        panelNumPuntos.add(numCoordenadasTxtField, BorderLayout.SOUTH);
+        panelTextBox.add(panelNumPuntos);
 
         framePrincipal.getContentPane().add(panelBotones, BorderLayout.SOUTH);
         framePrincipal.getContentPane().add(panelTextBox, BorderLayout.CENTER);
-        framePrincipal.getContentPane().add(numPuntosPanel, BorderLayout.NORTH);
+        framePrincipal.getContentPane().add(panelNumPuntos, BorderLayout.NORTH);
 
         // Listener boton Graham
         btnGraham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int numPuntosInput = Integer.parseInt(numCoordenadasTxtField.getText());
-                if(numPuntosInput >= 100) {
-                    // si la cantidad excede el valor maximo permitido, se setea a ese valor
-                    numPuntosInput = 100;
-                }
-
-                Point2D[] puntos = crearArregloCoordenadas(numPuntosInput);
+                int numPuntos = validarNumPuntos(numPuntosInput);
+                Point2D[] puntos = crearArregloCoordenadas(numPuntos);
                 Graham graham = new Graham();
                 Stack<Point2D> poligonoConvexoGraham = graham.crearPoligonoConvexo(puntos);
                 ArrayList<Point2D> puntosGraham = new ArrayList<>();
@@ -96,11 +105,8 @@ public class Main{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int numPuntosInput = Integer.parseInt(numCoordenadasTxtField.getText());
-                if(numPuntosInput >= 100) {
-                    // si la cantidad excede el valor maximo permitido, se setea a ese valor
-                    numPuntosInput = 100;
-                }
-                Point2D[] puntos = crearArregloCoordenadas(numPuntosInput);
+                int numPuntos = validarNumPuntos(numPuntosInput);
+                Point2D[] puntos = crearArregloCoordenadas(numPuntos);
                 Envolvente jarvis = new Envolvente();
                 ArrayList<Point2D> poligonoConvexoEnvolvente = jarvis.encontrarEnvolvente(puntos);
                 JFrame frameJarvis = new JFrame("Algoritmo envolvente (Jarvis)");
@@ -118,15 +124,11 @@ public class Main{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int numPuntosInput = Integer.parseInt(numCoordenadasTxtField.getText());
-                if(numPuntosInput >= 100) {
-                    // si la cantidad excede el valor maximo permitido, se setea a ese valor
-                    numPuntosInput = 100;
-                }
-                List<Point2D> puntos = crearListaCoordenadas(numPuntosInput);
-                Point2D[] puntosArray = (puntos.toArray(new Point2D[numPuntosInput]));
+                int numPuntos = validarNumPuntos(numPuntosInput);
+                List<Point2D> puntos = crearListaCoordenadas(numPuntos);
+                Point2D[] puntosArray = (puntos.toArray(new Point2D[numPuntos]));
                 QuickHull quickHull = new QuickHull();
                 ArrayList<Point2D> poligonoConvexoQuickhull = quickHull.envolventeQuickHull(puntos);
-                // List<Point2D> poligonoConvexoQuickhull = quickHull.envolventeQuickHull(puntos);
                 JFrame frameQuikhull = new JFrame("Algoritmo QuickHull");
                 frameQuikhull.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 frameQuikhull.pack();
