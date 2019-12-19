@@ -17,9 +17,7 @@ public class Envolvente {
         }
         Point2D puntoActual = puntoInicial;
 
-        // Set<Point2D> resultados = new HashSet<>();
         Stack<Point2D> resultados = new Stack<>();
-        // resultados.add(puntoInicial);
         resultados.push(puntoInicial);
         List<Point2D> puntosColineares = new ArrayList<>();
         while(true){
@@ -46,12 +44,10 @@ public class Envolvente {
                     } else { puntosColineares.add(puntos[i]); }
                 }
             }
-            // for(Point2D p: puntosColineares){ resultados.add(p); }
             for(Point2D p: puntosColineares){ resultados.push(p); }
             // condicion de termino (si el puntoSiguiente igual a puntoInicial hemos
             // llegado al fin del recorrido).
             if(puntoSiguiente == puntoInicial){ break; }
-            // resultados.add(puntoSiguiente);
             resultados.push(puntoSiguiente);
             puntoActual = puntoSiguiente;
         }

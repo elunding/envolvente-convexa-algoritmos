@@ -83,7 +83,7 @@ public class QuickHull {
         return punto;
     }
 
-    //Returna el determinanate los puntos 
+    //Retorna el determinanate los puntos
     public static double determinante(Point2D p1, Point2D p2, Point2D p3){
         double det = 0;
         det = p2.getY() * p3.getX() + p1.getY() * p2.getX() + p1.getX() * p3.getY();
